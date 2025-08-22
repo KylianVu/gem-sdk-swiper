@@ -89,6 +89,18 @@ export default function Pagination({ swiper, extendParams, on, emit }) {
     e.preventDefault();
     const index = elementIndex(bulletEl) * swiper.params.slidesPerGroup;
     if (swiper.params.loop) {
+      // Kiểm tra xem loop có bị disable không
+      const currentSlidesPerView =
+        swiper.params.slidesPerView === 'auto'
+          ? swiper.slidesPerViewDynamic()
+          : Math.ceil(parseFloat(swiper.params.slidesPerView, 10));
+
+      if (swiper.slides.length < currentSlidesPerView) {
+        // Loop bị disable, sử dụng slideTo trực tiếp
+        swiper.slideTo(index);
+        return;
+      }
+
       if (swiper.realIndex === index) return;
       const moveDirection = getMoveDirection(swiper.realIndex, index, swiper.slides.length);
       if (moveDirection === 'next') {
@@ -278,8 +290,8 @@ export default function Pagination({ swiper, extendParams, on, emit }) {
       swiper.virtual && swiper.params.virtual.enabled
         ? swiper.virtual.slides.length
         : swiper.grid && swiper.params.grid.rows > 1
-        ? swiper.slides.length / Math.ceil(swiper.params.grid.rows)
-        : swiper.slides.length;
+          ? swiper.slides.length / Math.ceil(swiper.params.grid.rows)
+          : swiper.slides.length;
 
     let el = swiper.pagination.el;
     el = makeElementsArray(el);
