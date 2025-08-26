@@ -1,7 +1,7 @@
 {
-  "name": "swiper",
+  "name": "gem-sdk-swiper",
   "version": "0.0.32",
-  "description": "Most modern mobile touch slider and framework with hardware accelerated transitions",
+  "description": "Gem SDK - Swiper, Customized of swiper",
   "typings": "swiper.d.ts",
   "type": "module",
   "main": "./swiper.mjs",
@@ -169,7 +169,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nolimits4web/Swiper.git"
+    "url": "https://github.com/your-username/gem-sdk-swiper.git"
   },
   "keywords": [
     "swiper",
@@ -190,12 +190,12 @@
     "vue",
     "slideshow"
   ],
-  "author": "Vladimir Kharlampidi",
+  "author": "Your Name <your-email@example.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nolimits4web/swiper/issues"
+    "url": "https://github.com/your-username/gem-sdk-swiper/issues"
   },
-  "homepage": "https://swiperjs.com",
+  "homepage": "https://github.com/your-username/gem-sdk-swiper",
   "funding": [
     {
       "type": "patreon",

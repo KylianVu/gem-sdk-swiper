@@ -25,7 +25,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nolimits4web/Swiper.git"
+    "url": "https://github.com/KylianVu/gem-sdk-swiper"
   },
   "keywords": [
     "swiper",
@@ -45,10 +45,10 @@
     "vue",
     "slideshow"
   ],
-  "author": "Vladimir Kharlampidi",
+  "author": "Kylian Vu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nolimits4web/swiper/issues"
+    "url": "https://github.com/KylianVu/gem-sdk-swiper/issues"
   },
   "homepage": "https://swiperjs.com",
   "funding": [

@@ -1111,3 +1111,77 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/swiper/contribute)]
 
 <a href="https://opencollective.com/swiper"><img src="https://opencollective.com/swiper/individuals.svg?width=890"></a>
+
+# Gem SDK - Swiper
+
+A customized version of Swiper.js for Gem Commerce platform.
+
+## Installation
+
+```bash
+npm install @your-npm-username/gem-sdk-swiper
+```
+
+## Usage
+
+### React
+
+```jsx
+import { Swiper, SwiperSlide } from '@your-npm-username/gem-sdk-swiper/react';
+import '@your-npm-username/gem-sdk-swiper/css';
+
+function App() {
+  return (
+    <Swiper>
+      <SwiperSlide>Slide 1</SwiperSlide>
+      <SwiperSlide>Slide 2</SwiperSlide>
+      <SwiperSlide>Slide 3</SwiperSlide>
+    </Swiper>
+  );
+}
+```
+
+### Vue
+
+```vue
+<template>
+  <swiper>
+    <swiper-slide>Slide 1</swiper-slide>
+    <swiper-slide>Slide 2</swiper-slide>
+    <swiper-slide>Slide 3</swiper-slide>
+  </swiper>
+</template>
+
+<script>
+import { Swiper, SwiperSlide } from '@your-npm-username/gem-sdk-swiper/vue';
+import '@your-npm-username/gem-sdk-swiper/css';
+</script>
+```
+
+### Vanilla JS
+
+```html
+<link rel="stylesheet" href="@your-npm-username/gem-sdk-swiper/css" />
+<script src="@your-npm-username/gem-sdk-swiper"></script>
+
+<div class="swiper">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">Slide 1</div>
+    <div class="swiper-slide">Slide 2</div>
+    <div class="swiper-slide">Slide 3</div>
+  </div>
+</div>
+```
+
+## Features
+
+- Customized for Gem Commerce platform
+- Based on Swiper.js
+- Support for React, Vue, and Vanilla JS
+- Touch-friendly mobile slider
+- Hardware accelerated transitions
+- Multiple effects and modules
+
+## License
+
+MIT
