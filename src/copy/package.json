@@ -1,6 +1,6 @@
 {
   "name": "gem-sdk-swiper",
-  "version": "0.0.35",
+  "version": "0.0.36",
   "description": "Gem SDK - Swiper, Customized of swiper",
   "typings": "swiper.d.ts",
   "type": "module",

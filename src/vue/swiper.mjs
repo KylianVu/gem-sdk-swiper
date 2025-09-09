@@ -178,6 +178,7 @@ const Swiper = {
     'keyPress',
     'lock',
     'loopFix',
+    'loopFixDot',
     'momentumBounce',
     'navigationHide',
     'navigationShow',

@@ -102,14 +102,15 @@ export default function Pagination({ swiper, extendParams, on, emit }) {
       }
 
       if (swiper.realIndex === index) return;
-      const moveDirection = getMoveDirection(swiper.realIndex, index, swiper.slides.length);
-      if (moveDirection === 'next') {
-        swiper.slideNext();
-      } else if (moveDirection === 'previous') {
-        swiper.slidePrev();
-      } else {
-        swiper.slideToLoop(index);
-      }
+      // const moveDirection = getMoveDirection(swiper.realIndex, index, swiper.slides.length);
+      swiper.slideToLoop(index);
+      // if (moveDirection === 'next') {
+      //   swiper.slideNext();
+      // } else if (moveDirection === 'previous') {
+      //   swiper.slidePrev();
+      // } else {
+      //   swiper.slideToLoop(index);
+      // }
     } else {
       swiper.slideTo(index);
     }
@@ -290,8 +291,8 @@ export default function Pagination({ swiper, extendParams, on, emit }) {
       swiper.virtual && swiper.params.virtual.enabled
         ? swiper.virtual.slides.length
         : swiper.grid && swiper.params.grid.rows > 1
-          ? swiper.slides.length / Math.ceil(swiper.params.grid.rows)
-          : swiper.slides.length;
+        ? swiper.slides.length / Math.ceil(swiper.params.grid.rows)
+        : swiper.slides.length;
 
     let el = swiper.pagination.el;
     el = makeElementsArray(el);

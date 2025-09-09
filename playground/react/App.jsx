@@ -6,7 +6,17 @@ import { A11y, Navigation, Pagination, Scrollbar, Mousewheel } from 'swiper/modu
 import { Swiper, SwiperSlide } from 'swiper/swiper-react';
 
 const App = () => {
-  const [slides, setSlides] = useState(['Slide 1', 'Slide 2', 'Slide 3']);
+  const [slides, setSlides] = useState([
+    'Slide 1',
+    'Slide 2',
+    'Slide 3',
+    'Slide 4',
+    'Slide 5',
+    'Slide 6',
+    'Slide 7',
+    'Slide 8',
+    'Slide 9',
+  ]);
 
   const addNewSlide = () => {
     const newSlideNumber = slides.length + 1;
@@ -67,7 +77,7 @@ const App = () => {
       <Swiper
         modules={[Pagination, Mousewheel, Navigation, Scrollbar]}
         onSwiper={(swiper) => (window.swiper = swiper)}
-        slidesPerView={4}
+        slidesPerView={7}
         loop={true}
         spaceBetween={10}
         navigation={true}
