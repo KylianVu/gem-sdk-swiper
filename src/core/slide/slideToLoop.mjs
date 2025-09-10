@@ -53,13 +53,6 @@ export default function slideToLoop(index = 0, speed, runCallbacks = true, inter
       }
 
       direction = nextSteps > prevSteps ? 'prev' : 'next';
-      // const direction = centeredSlides
-      //   ? targetSlideIndex < swiper.activeIndex
-      //     ? 'prev'
-      //     : 'next'
-      //   : targetSlideIndex - swiper.activeIndex - 1 < swiper.params.slidesPerView
-      //   ? 'next'
-      //   : 'prev';
 
       swiper.loopFixDot({
         direction,

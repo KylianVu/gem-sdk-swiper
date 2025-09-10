@@ -10,7 +10,6 @@ export default function loopFixDot({
   newIndex,
 } = {}) {
   const swiper = this;
-
   if (!swiper.params.loop) return;
 
   // Disable loop mode nếu số slides ít hơn slidesPerView
@@ -25,6 +24,11 @@ export default function loopFixDot({
   }
   swiper.emit('beforeLoopFix');
   const { slides, allowSlidePrev, allowSlideNext, slidesEl, params } = swiper;
+  const targetData = slidesEl.children[targetSlideIndex].getAttribute('data-swiper-slide-index');
+  const oldActiveData = Array.from(slidesEl.children)
+    .find((el) => el.classList.contains(params.slideActiveClass))
+    .getAttribute('data-swiper-slide-index');
+
   const { centeredSlides, initialSlide } = params;
   const swiperDataOldActiveIndex =
     slidesEl.children[swiper.activeIndex].getAttribute('data-swiper-slide-index');
@@ -153,12 +157,7 @@ export default function loopFixDot({
     slidesEl.insertBefore(cloneFragment, slidesEl.firstChild);
   }
   swiper.recalcSlides();
-  if (params.slidesPerView === 'auto') {
-    swiper.updateSlides();
-  }
-  if (params.watchSlidesProgress) {
-    swiper.updateSlidesOffset();
-  }
+  swiper.updateSlides();
 
   let slidesIndexAfterClone = [];
   for (let i = 0; i < slidesEl.children.length; i++) {
@@ -179,13 +178,6 @@ export default function loopFixDot({
   if (slideTo && oldActiveIndex !== swiper.activeIndex) {
     swiper.slideTo(oldActiveIndex, 0);
   }
-  // Remove slide clone ra khỏi slidesEl sau khi slideTo hoàn thành
-  const cloneSlides = slidesEl.querySelectorAll('[data-swiper-clone="true"]');
-  cloneSlides.forEach((cloneSlide) => {
-    if (cloneSlide.parentNode) {
-      cloneSlide.parentNode.removeChild(cloneSlide);
-    }
-  });
 
   // Tìm vị trí slide cũ sau khi remove clone để set lại translate tạo hiệu ứng animate
   const skip = Math.min(swiper.params.slidesPerGroupSkip, newIndex);
@@ -216,10 +208,39 @@ export default function loopFixDot({
     }
     swiper.setTranslate(updateTranslate);
   }
-
+  // Remove slide clone ra khỏi slidesEl sau khi slideTo hoàn thành
+  const cloneSlides = slidesEl.querySelectorAll('[data-swiper-clone="true"]');
+  cloneSlides.forEach((cloneSlide) => {
+    if (cloneSlide.parentNode) {
+      cloneSlide.parentNode.removeChild(cloneSlide);
+    }
+  });
   swiper.recalcSlides();
   swiper.updateSlides();
 
+  const targetDataIndex = Array.from(slidesEl.children).findIndex(
+    (el) => el.getAttribute('data-swiper-slide-index') * 1 === targetData * 1,
+  );
+  const oldDataIndex = Array.from(slidesEl.children).findIndex(
+    (el) => el.getAttribute('data-swiper-slide-index') * 1 === oldActiveData * 1,
+  );
+  const snapIndexNew = skip + Math.floor((targetDataIndex - skip) / swiper.params.slidesPerGroup);
+  const snapIndexOld = skip + Math.floor((oldDataIndex - skip) / swiper.params.slidesPerGroup);
+
+  if (slideTo && snapIndexNew === targetDataIndex) {
+    const translateOld =
+      -swiper.snapGrid[
+        snapIndexOld > swiper.snapGrid.length - 1
+          ? snapIndexNew - 1 > swiper.snapGrid.length - 1
+            ? 0
+            : snapIndexNew - 1
+          : snapIndexOld
+      ];
+    swiper.setTranslate(translateOld);
+  }
+
+  swiper.recalcSlides();
+  swiper.updateSlides();
   let slidesIndexAfterRemoveClone = [];
   for (let i = 0; i < slidesEl.children.length; i++) {
     slidesIndexAfterRemoveClone.push(slidesEl.children[i].getAttribute('data-swiper-slide-index'));
