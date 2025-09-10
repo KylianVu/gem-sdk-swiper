@@ -153,7 +153,12 @@ export default function loopFixDot({
     slidesEl.insertBefore(cloneFragment, slidesEl.firstChild);
   }
   swiper.recalcSlides();
-  swiper.updateSlides();
+  if (params.slidesPerView === 'auto') {
+    swiper.updateSlides();
+  }
+  if (params.watchSlidesProgress) {
+    swiper.updateSlidesOffset();
+  }
 
   let slidesIndexAfterClone = [];
   for (let i = 0; i < slidesEl.children.length; i++) {
