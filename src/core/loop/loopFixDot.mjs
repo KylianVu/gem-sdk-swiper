@@ -129,6 +129,21 @@ export default function loopFixDot({
       originalSlide.swiperLoopMoveDOM = false;
     });
   }
+
+  // Sắp xếp cloneFragment theo data-swiper-slide-index tăng dần
+  const clonedSlides = Array.from(cloneFragment.children);
+  clonedSlides.sort((a, b) => {
+    const indexA = parseInt(a.getAttribute('data-swiper-slide-index')) || 0;
+    const indexB = parseInt(b.getAttribute('data-swiper-slide-index')) || 0;
+    return indexA - indexB;
+  });
+
+  // Xóa tất cả children cũ và thêm lại theo thứ tự đã sắp xếp
+  cloneFragment.innerHTML = '';
+  clonedSlides.forEach((slide) => {
+    cloneFragment.appendChild(slide);
+  });
+
   // Thêm fragment vào vị trí phù hợp
   if (isPrev) {
     // Nếu là prev, thêm fragment vào cuối slidesEl
