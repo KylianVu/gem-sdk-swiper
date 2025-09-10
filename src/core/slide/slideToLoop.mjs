@@ -70,6 +70,7 @@ export default function slideToLoop(index = 0, speed, runCallbacks = true, inter
         newIndex: swiper.getSlideIndexByData(newIndex),
       });
     }
+    return;
     newIndex = swiper.getSlideIndexByData(newIndex);
     console.log('newIndex', newIndex);
   }
