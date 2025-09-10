@@ -195,8 +195,6 @@ export default function loopFixDot({
   if (snapIndex >= swiper.snapGrid.length) snapIndex = swiper.snapGrid.length - 1;
 
   const translate = -swiper.snapGrid[snapIndex];
-  console.log('translate', translate);
-  console.log('swiper.translate', swiper.translate);
   if (translate === swiper.translate) {
     let oldActiveIndexAfterRemoveClone;
     for (let i = 0; i < slidesEl.children.length; i++) {
@@ -218,7 +216,6 @@ export default function loopFixDot({
     } else {
       updateTranslate = oldTranslate;
     }
-    console.log('updateTranslate', updateTranslate);
     swiper.setTranslate(updateTranslate);
   }
 
