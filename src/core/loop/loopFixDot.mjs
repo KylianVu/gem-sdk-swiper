@@ -166,8 +166,6 @@ export default function loopFixDot({
     swiper.slideTo(oldActiveIndex, 0);
   }
 
-  // swiper.slideTo(newIndex, speed, runCallbacks, internal);
-
   // Remove slide clone ra khỏi slidesEl sau khi slideTo hoàn thành
   const cloneSlides = slidesEl.querySelectorAll('[data-swiper-clone="true"]');
   cloneSlides.forEach((cloneSlide) => {

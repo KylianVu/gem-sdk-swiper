@@ -116,6 +116,9 @@ export default function Pagination({ swiper, extendParams, on, emit }) {
     }
   }
 
+  // Export function để sử dụng ở ngoài
+  swiper.pagination.onBulletClick = onBulletClick;
+
   function update() {
     // Render || Update Pagination bullets/items
     const rtl = swiper.rtl;
