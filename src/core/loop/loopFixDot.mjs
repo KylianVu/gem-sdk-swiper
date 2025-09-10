@@ -152,7 +152,6 @@ export default function loopFixDot({
     // Nếu là next, thêm fragment vào đầu slidesEl
     slidesEl.insertBefore(cloneFragment, slidesEl.firstChild);
   }
-  return;
   swiper.recalcSlides();
   swiper.updateSlides();
 
