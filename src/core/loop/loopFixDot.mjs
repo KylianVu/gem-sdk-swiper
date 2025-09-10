@@ -154,12 +154,7 @@ export default function loopFixDot({
   }
 
   swiper.recalcSlides();
-  if (params.slidesPerView === 'auto') {
-    swiper.updateSlides();
-  }
-  if (params.watchSlidesProgress) {
-    swiper.updateSlidesOffset();
-  }
+  swiper.updateSlides();
 
   let slidesIndexAfterClone = [];
   for (let i = 0; i < slidesEl.children.length; i++) {
@@ -180,7 +175,6 @@ export default function loopFixDot({
   if (slideTo && oldActiveIndex !== swiper.activeIndex) {
     swiper.slideTo(oldActiveIndex, 0);
   }
-
   // Remove slide clone ra khỏi slidesEl sau khi slideTo hoàn thành
   const cloneSlides = slidesEl.querySelectorAll('[data-swiper-clone="true"]');
   cloneSlides.forEach((cloneSlide) => {
