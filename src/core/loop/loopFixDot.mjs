@@ -159,11 +159,6 @@ export default function loopFixDot({
   swiper.recalcSlides();
   swiper.updateSlides();
 
-  let slidesIndexAfterClone = [];
-  for (let i = 0; i < slidesEl.children.length; i++) {
-    slidesIndexAfterClone.push(slidesEl.children[i].getAttribute('data-swiper-slide-index'));
-  }
-  console.log('slidesIndexAfterClone', slidesIndexAfterClone);
   // Tìm slide có data-swiper-slide-index tương ứng
   let oldActiveIndex = null;
 
@@ -241,11 +236,6 @@ export default function loopFixDot({
 
   swiper.recalcSlides();
   swiper.updateSlides();
-  let slidesIndexAfterRemoveClone = [];
-  for (let i = 0; i < slidesEl.children.length; i++) {
-    slidesIndexAfterRemoveClone.push(slidesEl.children[i].getAttribute('data-swiper-slide-index'));
-  }
-  console.log('slidesIndexAfterRemoveClone', slidesIndexAfterRemoveClone);
 
   swiper.allowSlidePrev = allowSlidePrev;
   swiper.allowSlideNext = allowSlideNext;

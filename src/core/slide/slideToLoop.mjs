@@ -40,7 +40,23 @@ export default function slideToLoop(index = 0, speed, runCallbacks = true, inter
       needLoopFix = false;
     }
 
-    if (needLoopFix) {
+    if (centeredSlides && needLoopFix) {
+      const direction = centeredSlides
+        ? targetSlideIndex < swiper.activeIndex
+          ? 'prev'
+          : 'next'
+        : targetSlideIndex - swiper.activeIndex - 1 < swiper.params.slidesPerView
+        ? 'next'
+        : 'prev';
+      swiper.loopFix({
+        direction,
+        slideTo: true,
+        activeSlideIndex: direction === 'next' ? targetSlideIndex + 1 : targetSlideIndex - cols + 1,
+        slideRealIndex: direction === 'next' ? swiper.realIndex : undefined,
+      });
+    }
+
+    if (!centeredSlides && needLoopFix) {
       let direction;
       let nextSteps;
       let prevSteps;
@@ -64,7 +80,6 @@ export default function slideToLoop(index = 0, speed, runCallbacks = true, inter
       });
     }
     newIndex = swiper.getSlideIndexByData(newIndex);
-    console.log('newIndex', newIndex);
   }
 
   requestAnimationFrame(() => {
