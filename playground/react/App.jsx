@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 // eslint-disable-next-line
 import { A11y, Navigation, Pagination, Scrollbar, Mousewheel } from 'swiper/modules';
 // eslint-disable-next-line
@@ -34,6 +34,16 @@ const App = () => {
       setSlides(slides.slice(0, -1));
     }
   };
+
+  const slidesPerView = 5.2;
+  const itemNumber = 6;
+  const [swiper, setSwiper] = useState(null);
+
+  const slidesOffsetBefore = useMemo(() => {
+    if (!swiper) return 0;
+    const offsetBefore = (swiper?.width - (swiper?.width / slidesPerView) * (itemNumber - 2)) / 2;
+    return offsetBefore;
+  }, [slides.length, slidesPerView, swiper]);
 
   return (
     <main>
@@ -76,11 +86,16 @@ const App = () => {
 
       <Swiper
         modules={[Pagination, Mousewheel, Navigation, Scrollbar]}
-        onSwiper={(swiper) => (window.swiper = swiper)}
-        slidesPerView={7}
+        onSwiper={(swiper) => {
+          setSwiper(swiper);
+        }}
+        initialSlide={slides.length}
+        slidesPerView={slidesPerView}
         loop={true}
-        spaceBetween={10}
+        spaceBetween={5}
+        isSneakPeekCenter={true}
         navigation={true}
+        slidesOffsetBefore={slidesOffsetBefore}
         scrollbar
         mousewheel={{ forceToAxis: true, sensitivity: 0.1, releaseOnEdges: true }}
         pagination={{ clickable: true }}
