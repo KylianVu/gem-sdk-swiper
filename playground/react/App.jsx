@@ -35,8 +35,8 @@ const App = () => {
     }
   };
 
-  const slidesPerView = 5.2;
-  const itemNumber = 6;
+  const slidesPerView = 3.2;
+  const itemNumber = 4;
   const [swiper, setSwiper] = useState(null);
 
   const slidesOffsetBefore = useMemo(() => {

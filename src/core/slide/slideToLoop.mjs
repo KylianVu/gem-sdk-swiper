@@ -40,31 +40,7 @@ export default function slideToLoop(index = 0, speed, runCallbacks = true, inter
       needLoopFix = false;
     }
 
-    const isSneakPeekCenter = swiper.params?.isSneakPeekCenter;
-    if (isSneakPeekCenter) {
-      let direction;
-      let nextSteps;
-      let prevSteps;
-      if (swiper.activeIndex < targetSlideIndex) {
-        nextSteps = targetSlideIndex - swiper.activeIndex;
-        prevSteps = swiper.activeIndex - (targetSlideIndex - totalSlides);
-      } else {
-        prevSteps = swiper.activeIndex - targetSlideIndex;
-        nextSteps = targetSlideIndex + totalSlides - swiper.activeIndex;
-      }
-
-      direction = nextSteps > prevSteps ? 'prev' : 'next';
-      swiper.loopFixDot({
-        direction,
-        slideTo: true,
-        activeSlideIndex: direction === 'next' ? targetSlideIndex + 1 : targetSlideIndex - cols + 1,
-        slideRealIndex: direction === 'next' ? swiper.realIndex : undefined,
-        targetSlideIndex,
-        newIndex: swiper.getSlideIndexByData(newIndex),
-      });
-    }
-
-    if (!isSneakPeekCenter && centeredSlides && needLoopFix) {
+    if (centeredSlides && needLoopFix) {
       const direction = centeredSlides
         ? targetSlideIndex < swiper.activeIndex
           ? 'prev'
@@ -80,7 +56,7 @@ export default function slideToLoop(index = 0, speed, runCallbacks = true, inter
       });
     }
 
-    if (!isSneakPeekCenter && !centeredSlides && needLoopFix) {
+    if (!centeredSlides && needLoopFix) {
       let direction;
       let nextSteps;
       let prevSteps;
