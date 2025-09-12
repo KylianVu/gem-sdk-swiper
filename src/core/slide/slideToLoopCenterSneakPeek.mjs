@@ -1,4 +1,9 @@
-export default function slideToLoop(index = 0, speed, runCallbacks = true, internal) {
+export default function slideToLoopCenterSneakPeek(
+  index = 0,
+  speed,
+  runCallbacks = true,
+  internal,
+) {
   if (typeof index === 'string') {
     const indexAsNumber = parseInt(index, 10);
 
@@ -107,6 +112,24 @@ export default function slideToLoop(index = 0, speed, runCallbacks = true, inter
 
   requestAnimationFrame(() => {
     swiper.slideTo(newIndex, speed, runCallbacks, internal);
+    console.log('swiper.activeIndexádasda');
+    const slides = swiper.slides;
+    if (swiper.params?.isSneakPeekCenter && slides.length > 1 && swiper.activeIndex === 0) {
+      const originalSnapGrid0 = swiper.snapGrid[0];
+      const gap = Math.abs(swiper.snapGrid[1] - swiper.snapGrid[0]);
+
+      // Move last item to first position only if active slide is the first slide
+      const lastSlide = slides[slides.length - 1];
+      lastSlide.swiperLoopMoveDOM = true;
+      swiper.slidesEl.prepend(lastSlide);
+      lastSlide.swiperLoopMoveDOM = false;
+      swiper.recalcSlides();
+      swiper.updateSlides();
+
+      const translate = originalSnapGrid0;
+      swiper.setTransition(swiper.params.speed);
+      swiper.setTranslate(translate);
+    }
   });
   return swiper;
 }

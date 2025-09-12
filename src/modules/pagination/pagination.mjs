@@ -103,7 +103,12 @@ export default function Pagination({ swiper, extendParams, on, emit }) {
 
       if (swiper.realIndex === index) return;
       // const moveDirection = getMoveDirection(swiper.realIndex, index, swiper.slides.length);
-      swiper.slideToLoop(index);
+      if (swiper.params.isSneakPeekCenter) {
+        swiper.slideToLoopCenterSneakPeek(index);
+      } else {
+        swiper.slideToLoop(index);
+      }
+
       // if (moveDirection === 'next') {
       //   swiper.slideNext();
       // } else if (moveDirection === 'previous') {
