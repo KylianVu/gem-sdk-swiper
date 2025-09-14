@@ -37,13 +37,16 @@ const App = () => {
 
   const slidesPerView = 3.2;
   const itemNumber = 4;
+  const spaceBetween = 10;
   const [swiper, setSwiper] = useState(null);
 
   const slidesOffsetBefore = useMemo(() => {
     if (!swiper) return 0;
-    const offsetBefore = (swiper?.width - (swiper?.width / slidesPerView) * (itemNumber - 2)) / 2;
+    const slidesWidth = swiper?.width - spaceBetween * (itemNumber - 1);
+    const offsetBefore = (slidesWidth - (slidesWidth / slidesPerView) * (itemNumber - 2)) / 2;
     return offsetBefore;
   }, [slides.length, slidesPerView, swiper]);
+  console.log('slidesOffsetBefore', slidesOffsetBefore);
 
   return (
     <main>
@@ -92,7 +95,7 @@ const App = () => {
         initialSlide={slides.length}
         slidesPerView={slidesPerView}
         loop={true}
-        spaceBetween={5}
+        spaceBetween={spaceBetween}
         isSneakPeekCenter={true}
         navigation={true}
         slidesOffsetBefore={slidesOffsetBefore}

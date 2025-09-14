@@ -112,23 +112,23 @@ export default function slideToLoopCenterSneakPeek(
 
   requestAnimationFrame(() => {
     swiper.slideTo(newIndex, speed, runCallbacks, internal);
-    console.log('swiper.activeIndexádasda');
     const slides = swiper.slides;
+    const rtl = swiper.rtlTranslate;
     if (swiper.params?.isSneakPeekCenter && slides.length > 1 && swiper.activeIndex === 0) {
-      const originalSnapGrid0 = swiper.snapGrid[0];
       const gap = Math.abs(swiper.snapGrid[1] - swiper.snapGrid[0]);
+      const swiperTranslate = JSON.parse(JSON.stringify(swiper.snapGrid[1]));
 
       // Move last item to first position only if active slide is the first slide
       const lastSlide = slides[slides.length - 1];
       lastSlide.swiperLoopMoveDOM = true;
       swiper.slidesEl.prepend(lastSlide);
       lastSlide.swiperLoopMoveDOM = false;
+      swiper.setTransition(0);
+      swiper.setTranslate(rtl ? -(-swiperTranslate + gap) : -swiperTranslate + gap);
       swiper.recalcSlides();
       swiper.updateSlides();
-
-      const translate = originalSnapGrid0;
       swiper.setTransition(swiper.params.speed);
-      swiper.setTranslate(translate);
+      swiper.setTranslate(rtl ? swiperTranslate : -swiperTranslate);
     }
   });
   return swiper;

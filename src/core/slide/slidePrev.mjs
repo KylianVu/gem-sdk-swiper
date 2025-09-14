@@ -10,8 +10,6 @@ export default function slidePrev(speed, runCallbacks = true, internal) {
   const isVirtual = swiper.virtual && params.virtual.enabled;
 
   if (params.loop) {
-    if (animating && !isVirtual && params.loopPreventsSliding) return false;
-
     // Kiểm tra xem loop có bị disable không
     const currentSlidesPerView =
       params.slidesPerView === 'auto'
@@ -74,5 +72,26 @@ export default function slidePrev(speed, runCallbacks = true, internal) {
     });
     return true;
   }
-  return swiper.slideTo(prevIndex, speed, runCallbacks, internal);
+  requestAnimationFrame(() => {
+    swiper.slideTo(prevIndex, speed, runCallbacks, internal);
+    const slides = swiper.slides;
+    const rtl = swiper.rtlTranslate;
+    if (swiper.params?.isSneakPeekCenter && slides.length > 1 && swiper.activeIndex === 0) {
+      const gap = Math.abs(swiper.snapGrid[1] - swiper.snapGrid[0]);
+      const swiperTranslate = JSON.parse(JSON.stringify(swiper.snapGrid[1]));
+
+      // Move last item to first position only if active slide is the first slide
+      const lastSlide = slides[slides.length - 1];
+      lastSlide.swiperLoopMoveDOM = true;
+      swiper.slidesEl.prepend(lastSlide);
+      lastSlide.swiperLoopMoveDOM = false;
+      swiper.setTransition(0);
+      swiper.setTranslate(rtl ? -(-swiperTranslate + gap) : -swiperTranslate + gap);
+      swiper.recalcSlides();
+      swiper.updateSlides();
+      swiper.setTransition(swiper.params.speed);
+      swiper.setTranslate(rtl ? swiperTranslate : -swiperTranslate);
+    }
+  });
+  return;
 }
