@@ -86,7 +86,7 @@ export default function slidePrev(speed, runCallbacks = true, internal) {
       swiper.slidesEl.prepend(lastSlide);
       lastSlide.swiperLoopMoveDOM = false;
       swiper.setTransition(0);
-      swiper.setTranslate(rtl ? -(-swiperTranslate + gap) : -swiperTranslate + gap);
+      swiper.setTranslate(rtl ? swiperTranslate + gap : -(swiperTranslate + gap));
       swiper.recalcSlides();
       swiper.updateSlides();
       swiper.setTransition(swiper.params.speed);

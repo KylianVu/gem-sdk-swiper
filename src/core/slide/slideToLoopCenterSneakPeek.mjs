@@ -124,7 +124,7 @@ export default function slideToLoopCenterSneakPeek(
       swiper.slidesEl.prepend(lastSlide);
       lastSlide.swiperLoopMoveDOM = false;
       swiper.setTransition(0);
-      swiper.setTranslate(rtl ? -(-swiperTranslate + gap) : -swiperTranslate + gap);
+      swiper.setTranslate(rtl ? swiperTranslate + gap : -(swiperTranslate + gap));
       swiper.recalcSlides();
       swiper.updateSlides();
       swiper.setTransition(swiper.params.speed);

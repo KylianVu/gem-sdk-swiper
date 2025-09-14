@@ -1,6 +1,6 @@
 {
   "name": "gem-sdk-swiper",
-  "version": "0.0.52",
+  "version": "0.0.55",
   "description": "Gem SDK - Swiper, Customized of swiper",
   "typings": "swiper.d.ts",
   "type": "module",
@@ -209,5 +209,5 @@
   "engines": {
     "node": ">= 4.7.0"
   },
-  "releaseDate": "September 12, 2025"
+  "releaseDate": "September 14, 2025"
 }
