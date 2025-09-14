@@ -75,7 +75,7 @@ export default function slidePrev(speed, runCallbacks = true, internal) {
   requestAnimationFrame(() => {
     swiper.slideTo(prevIndex, speed, runCallbacks, internal);
     const slides = swiper.slides;
-    const rtl = swiper.rtlTranslate;
+
     if (swiper.params?.isSneakPeekCenter && slides.length > 1 && swiper.activeIndex === 0) {
       const gap = Math.abs(swiper.snapGrid[1] - swiper.snapGrid[0]);
       const swiperTranslate = JSON.parse(JSON.stringify(swiper.snapGrid[1]));
@@ -86,11 +86,11 @@ export default function slidePrev(speed, runCallbacks = true, internal) {
       swiper.slidesEl.prepend(lastSlide);
       lastSlide.swiperLoopMoveDOM = false;
       swiper.setTransition(0);
-      swiper.setTranslate(rtl ? swiperTranslate + gap : -(swiperTranslate + gap));
+      swiper.setTranslate(-(swiperTranslate + gap));
       swiper.recalcSlides();
       swiper.updateSlides();
       swiper.setTransition(swiper.params.speed);
-      swiper.setTranslate(rtl ? swiperTranslate : -swiperTranslate);
+      swiper.setTranslate(-swiperTranslate);
     }
   });
   return;
