@@ -68,67 +68,26 @@ export default function slideToLoopCenterSneakPeek(
         newIndex: swiper.getSlideIndexByData(newIndex),
       });
     }
-
-    if (!isSneakPeekCenter && centeredSlides && needLoopFix) {
-      const direction = centeredSlides
-        ? targetSlideIndex < swiper.activeIndex
-          ? 'prev'
-          : 'next'
-        : targetSlideIndex - swiper.activeIndex - 1 < swiper.params.slidesPerView
-        ? 'next'
-        : 'prev';
-      swiper.loopFix({
-        direction,
-        slideTo: true,
-        activeSlideIndex: direction === 'next' ? targetSlideIndex + 1 : targetSlideIndex - cols + 1,
-        slideRealIndex: direction === 'next' ? swiper.realIndex : undefined,
-      });
-    }
-
-    if (!isSneakPeekCenter && !centeredSlides && needLoopFix) {
-      let direction;
-      let nextSteps;
-      let prevSteps;
-      if (swiper.activeIndex < targetSlideIndex) {
-        nextSteps = targetSlideIndex - swiper.activeIndex;
-        prevSteps = swiper.activeIndex - (targetSlideIndex - totalSlides);
-      } else {
-        prevSteps = swiper.activeIndex - targetSlideIndex;
-        nextSteps = targetSlideIndex + totalSlides - swiper.activeIndex;
-      }
-
-      direction = nextSteps > prevSteps ? 'prev' : 'next';
-      swiper.loopFixDot({
-        direction,
-        slideTo: true,
-        activeSlideIndex: direction === 'next' ? targetSlideIndex + 1 : targetSlideIndex - cols + 1,
-        slideRealIndex: direction === 'next' ? swiper.realIndex : undefined,
-        targetSlideIndex,
-        newIndex: swiper.getSlideIndexByData(newIndex),
-      });
-    }
     newIndex = swiper.getSlideIndexByData(newIndex);
   }
 
-  requestAnimationFrame(() => {
-    swiper.slideTo(newIndex, speed, runCallbacks, internal);
-    const slides = swiper.slides;
-    if (swiper.params?.isSneakPeekCenter && slides.length > 1 && swiper.activeIndex === 0) {
-      const gap = Math.abs(swiper.snapGrid[1] - swiper.snapGrid[0]);
-      const swiperTranslate = JSON.parse(JSON.stringify(swiper.snapGrid[1]));
+  swiper.slideTo(newIndex, speed, runCallbacks, internal);
+  const slides = swiper.slides;
+  if (swiper.params?.isSneakPeekCenter && slides.length > 1 && swiper.activeIndex === 0) {
+    const gap = Math.abs(swiper.snapGrid[1] - swiper.snapGrid[0]);
+    const swiperTranslate = JSON.parse(JSON.stringify(swiper.snapGrid[1]));
 
-      // Move last item to first position only if active slide is the first slide
-      const lastSlide = slides[slides.length - 1];
-      lastSlide.swiperLoopMoveDOM = true;
-      swiper.slidesEl.prepend(lastSlide);
-      lastSlide.swiperLoopMoveDOM = false;
-      swiper.setTransition(0);
-      swiper.setTranslate(-(swiperTranslate + gap));
-      swiper.recalcSlides();
-      swiper.updateSlides();
-      swiper.setTransition(swiper.params.speed);
-      swiper.setTranslate(-swiperTranslate);
-    }
-  });
-  return swiper;
+    // Move last item to first position only if active slide is the first slide
+    const lastSlide = slides[slides.length - 1];
+    lastSlide.swiperLoopMoveDOM = true;
+    swiper.slidesEl.prepend(lastSlide);
+    lastSlide.swiperLoopMoveDOM = false;
+    swiper.setTransition(0);
+    swiper.setTranslate(-(swiperTranslate + gap));
+    swiper.recalcSlides();
+    swiper.updateSlides();
+    swiper.setTransition(swiper.params.speed);
+    swiper.setTranslate(-swiperTranslate);
+  }
+  return;
 }
